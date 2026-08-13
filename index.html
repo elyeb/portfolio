@@ -623,7 +623,10 @@ function openModal(item) {
   if (prevMedia) prevMedia.remove();
 
   if (item.interactive) {
-    if (item.mediaSrc.includes("powerbi.com")) {
+    const noIframeDomains = ["powerbi.com", "streamlit.app", "share.streamlit.io"];
+    const needsNewTab = noIframeDomains.some(domain => item.mediaSrc.includes(domain));
+
+    if (needsNewTab) {
       window.open(item.mediaSrc, "_blank");
     } else {
       const iframe = document.createElement('iframe');
