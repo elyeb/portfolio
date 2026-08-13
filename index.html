@@ -623,11 +623,15 @@ function openModal(item) {
   if (prevMedia) prevMedia.remove();
 
   if (item.interactive) {
-    const iframe = document.createElement('iframe');
-    iframe.src = item.mediaSrc;
-    iframe.title = item.title;
-    iframe.allow = "fullscreen";
-    modalMedia.appendChild(iframe);
+    if (item.mediaSrc.includes("powerbi.com")) {
+      window.open(item.mediaSrc, "_blank");
+    } else {
+      const iframe = document.createElement('iframe');
+      iframe.src = item.mediaSrc;
+      iframe.title = item.title;
+      iframe.allow = "fullscreen";
+      modalMedia.appendChild(iframe);
+    }
   } else {
     const img = document.createElement('img');
     img.src = item.mediaSrc;
